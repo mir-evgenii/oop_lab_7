@@ -1,8 +1,9 @@
 from web import web
 
 url = input('Введите URL: ')
+depth = input('Введите глубину поиска: ')
 
-web = web(url)
+web = web(url, depth)
 
-print(web.scan())
+web.scan()
 
