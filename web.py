@@ -13,18 +13,19 @@ class web:
         response = requests.get(self.__url)
         url_list = self.__parse_response_str(response.text)
 
-        for url in url_list:
-            print('{} depth URL : '.format(self.__depth) + url)
+        self.__print_url_list(url_list, self.__depth)
 
         while self.__depth > 0:
             for url in url_list:
                 response = requests.get(self.__url)
-                url_list_dep = self.__parse_response_str(response.text)
-                for d_url in url_list_dep:
-                    print('{} depth URL : '.format(self.__depth - 1) + d_url)
+                new_url_list = self.__parse_response_str(response.text)
+                self.__print_url_list(new_url_list, self.__depth - 1)
             self.__depth -= 1
-            url_list = url_list_dep
+            url_list = new_url_list
 
+    def __print_url_list(self, url_list, depth):
+        for url in url_list:
+            print('{} depth URL : '.format(depth) + url)
 
     def __parse_response_str(self, response_str):
 
